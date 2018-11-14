@@ -1,2 +1,5 @@
 @import 'tailwind.css';
 
+.leaflet-container {
+  min-height: 450px;
+}

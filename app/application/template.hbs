@@ -1,0 +1,16 @@
+<h2 id="title">Welcome to Ember</h2>
+
+<LeafletMap
+  @lat={{this.lat}}
+  @lng={{this.lng}}
+  @zoom={{this.zoom}}
+  @onLoad={{action 'mapLoaded'}}
+as |layers|>
+  <layers.tile @url='http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png' />
+</LeafletMap>
+
+<textarea
+  rows='10'
+  value={{this.cartoCss}}
+  onchange={{action 'updateCss' value='target.value'}}
+></textarea>
