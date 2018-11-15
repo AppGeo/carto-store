@@ -29,8 +29,11 @@ export default class Application extends Controller.extend({
       marker-line-color: #FFFFFF;
     }
   `;
-  layer!: CartoLayer;
-  style!: object;
+  cartoSql?: string;
+  layer: carto.layer.Layer;
+  style: carto.style.CartoCSS;
+  source: carto.source.Dataset;
+  cartoClient: carto.Client; 
 
   constructor() {
     super();
@@ -42,6 +45,7 @@ export default class Application extends Controller.extend({
     const layer = new carto.layer.Layer(source, style);
 
     this.layer = layer;
+    this.source = source;
     this.style = style;
     this.cartoClient = client;
   }
@@ -62,11 +66,19 @@ export default class Application extends Controller.extend({
   }
 
   @action
-  updateCss(css: string) {    
-    let layer = this.layer;
-    
+  updateCss(css: string) {        
     this.style.setContent(css);
     this.set('cartoCss', css);
+  }
+
+  @action
+  updateSql(sql: string) {
+    if (sql) {
+      const source = new carto.source.SQL(sql);
+      this.layer.setSource(source);
+    } else {
+      this.layer.setSource(this.source);
+    }
   }
 }
 
