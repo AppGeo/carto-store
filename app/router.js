@@ -7,6 +7,12 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('visualizations', function() {
+    this.route('new');
+  });
+  this.route('visualization', { path: '/visualizations/:visualizationId' }, function() {
+    
+  });
 });
 
 export default Router;
