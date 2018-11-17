@@ -1,84 +1,36 @@
 import Controller from '@ember/controller';
 import { action } from '@ember-decorators/object';
-import carto from '@carto/carto.js';
+import { service } from '@ember-decorators/service';
+import DS from 'ember-data';
 
-interface LoadedEvent {
-  target: object;
+interface CartoData {
+  css: string;
+  sql: string;
+  name: string;
 }
-
-interface CartoLayer {
-  setStyle: Function;
-}
-
-const client = new carto.Client({
-  apiKey: 'default_public',
-  username: 'cartojs-test'
-});
 
 export default class VisualizationsNew extends Controller.extend({
   // anything which *must* be merged to prototype here
 }) {
-  lat: number = 30;
-  lng: number = 0;
-  zoom: number = 3;
-  cartoSource: string = 'ne_10m_populated_places_simple';
-  cartoCss: string = `
-    #layer {
-      marker-width: 7;
-      marker-fill: #EE4D5A;
-      marker-line-color: #FFFFFF;
-    }
-  `;
-  cartoSql?: string;
-  layer: carto.layer.Layer;
-  style: carto.style.CartoCSS;
-  source: carto.source.Dataset;
-  cartoClient: carto.Client; 
-
-  constructor() {
-    super();
-    let cartoCss = this.cartoCss;
-    let cartoSource = this.cartoSource;
-
-    const source = new carto.source.Dataset(cartoSource);
-    const style = new carto.style.CartoCSS(cartoCss);
-    const layer = new carto.layer.Layer(source, style);
-
-    this.layer = layer;
-    this.source = source;
-    this.style = style;
-    this.cartoClient = client;
-  }
+  @service('store') storeService!: DS.Store;
 
   @action
-  mapLoaded(event: LoadedEvent) {
-    let map = event.target;
-    let layer = this.layer;
+  async create(data: CartoData) {
+    let store = this.storeService;
+    let variation = store.createRecord('variation-carto', {
+      css: data.css,
+      sql: data.sql
+    });
 
-    client.addLayer(layer);
+    await variation.save();
 
-    let leafletLayer = client.getLeafletLayer();
-    
-    setTimeout(() => {
-      leafletLayer.addTo(map);
-      leafletLayer.bringToFront();
-    }, 300)
-  }
+    let visualization = store.createRecord('visualization', {
+      name: data.name
+    });
 
-  @action
-  updateCss(css: string) {        
-    this.style.setContent(css);
-    this.set('cartoCss', css);
-  }
-
-  @action
-  updateSql(sql: string) {
-    if (sql) {
-      const source = new carto.source.SQL(sql);
-      this.layer.setSource(source);
-    } else {
-      this.layer.setSource(this.source);
-    }
+    visualization.get('variations').addObject(variation);
+    await visualization.save();
+    alert('saved');
   }
 }
 

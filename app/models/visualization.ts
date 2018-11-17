@@ -1,13 +1,13 @@
 import DS from 'ember-data';
 import { attr } from '@ember-decorators/data';
 import { hasMany } from '@ember-decorators/data';
-import Variation from './variation';
+import VariationCarto from './variation-carto';
 
 export default class Visualization extends DS.Model.extend({
 
 }) {
   @attr('string') name!: string;
-  @hasMany('variation') variations!: DS.RecordArray<Variation>;
+  @hasMany('variation-carto') variations!: DS.RecordArray<VariationCarto>;
 }
 
 // DO NOT DELETE: this is how TypeScript knows how to look up your models.

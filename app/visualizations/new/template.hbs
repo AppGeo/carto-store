@@ -1,35 +1,3 @@
-<div class='mx-4 mt-4 shadow-md rounded'>
-  <LeafletMap
-    @lat={{this.lat}}
-    @lng={{this.lng}}
-    @zoom={{this.zoom}}
-    @onLoad={{action 'mapLoaded'}}
-  as |layers|>
-    <layers.tile @url='http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png' />
-  </LeafletMap>
-</div>
-
-<div class='p-4 flex flex-row'>
-  <textarea
-    class='mr-4 bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-1/3 py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple'
-    rows='10'
-    placeholder='carto css'
-    value={{this.cartoCss}}
-    onchange={{action 'updateCss' value='target.value'}}
-  ></textarea>
-
-  <textarea
-    class='mr-4 bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-1/3 py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple'
-    rows='10'
-    placeholder='sql'
-    value={{this.cartoSql}}
-    onchange={{action 'updateSql' value='target.value'}}
-  ></textarea>
-
-  <p class='py-2 text-sm text-grey-darker'>
-    Test SQL with:<br><br>
-    SELECT *
-      FROM ne_10m_populated_places_simple
-      WHERE adm0name IN (SELECT admin FROM ne_adm0_europe)
-  </p>
-</div>
+<CartoEditor as |data|>
+  <button type='button' onclick={{action 'create' data}}>Create</button>
+</CartoEditor>

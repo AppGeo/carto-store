@@ -26,5 +26,8 @@ export default function() {
 
   this.namespace = '/api';
   this.get('/visualizations');
+  this.get('/visualizations/:id');
   this.post('/visualizations');
+  this.get('/variation-cartos');
+  this.post('/variation-cartos');
 }
