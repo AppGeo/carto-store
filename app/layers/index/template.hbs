@@ -1,0 +1,9 @@
+<ul class='list-reset'>
+  {{#each this.model as |layer|}}
+    <li>
+      {{#link-to 'layer.index' layer.id}}
+        {{layer.name}}
+      {{/link-to}}
+    </li>
+  {{/each}}
+</ul>

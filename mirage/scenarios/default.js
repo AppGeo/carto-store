@@ -6,5 +6,5 @@ export default function(server) {
   */
 
   // server.createList('post', 10);
-  server.createList('visualization', 2);
+  server.createList('layer', 2);
 }

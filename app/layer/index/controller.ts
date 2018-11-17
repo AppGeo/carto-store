@@ -1,15 +1,15 @@
 import Controller from '@ember/controller';
-import Visualization from 'carto-store/models/visualization';
+import Layer from 'carto-store/models/layer';
 
-export default class VisualizationIndex extends Controller.extend({
+export default class LayerIndex extends Controller.extend({
   // anything which *must* be merged to prototype here
 }) {
-  visualization!: Visualization;
+  layer!: Layer;
 }
 
 // DO NOT DELETE: this is how TypeScript knows how to look up your controllers.
 declare module '@ember/controller' {
   interface Registry {
-    'visualization/index': VisualizationIndex;
+    'layer/index': LayerIndex;
   }
 }

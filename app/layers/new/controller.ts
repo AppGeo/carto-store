@@ -9,7 +9,7 @@ interface CartoData {
   name: string;
 }
 
-export default class VisualizationsNew extends Controller.extend({
+export default class LayersNew extends Controller.extend({
   // anything which *must* be merged to prototype here
 }) {
   @service('store') storeService!: DS.Store;
@@ -24,12 +24,12 @@ export default class VisualizationsNew extends Controller.extend({
 
     await variation.save();
 
-    let visualization = store.createRecord('visualization', {
+    let layer = store.createRecord('layer', {
       name: data.name
     });
 
-    visualization.get('variations').addObject(variation);
-    await visualization.save();
+    layer.get('variations').addObject(variation);
+    await layer.save();
     alert('saved');
   }
 }
@@ -37,6 +37,6 @@ export default class VisualizationsNew extends Controller.extend({
 // DO NOT DELETE: this is how TypeScript knows how to look up your controllers.
 declare module '@ember/controller' {
   interface Registry {
-    'visualizations/new': VisualizationsNew;
+    'layers/new': LayersNew;
   }
 }

@@ -4,8 +4,8 @@ export default Factory.extend({
   name(i) {
     return `Name ${i}`;
   },
-  afterCreate(visualization, server) {
-    visualization.createVariation({
+  afterCreate(layer, server) {
+    layer.createVariation({
       name: 'base',
 
       css: `#layer {

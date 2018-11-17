@@ -3,7 +3,7 @@ import { attr } from '@ember-decorators/data';
 import { hasMany } from '@ember-decorators/data';
 import VariationCarto from './variation-carto';
 
-export default class Visualization extends DS.Model.extend({
+export default class Layer extends DS.Model.extend({
 
 }) {
   @attr('string') name!: string;
@@ -13,6 +13,6 @@ export default class Visualization extends DS.Model.extend({
 // DO NOT DELETE: this is how TypeScript knows how to look up your models.
 declare module 'ember-data/types/registries/model' {
   export default interface ModelRegistry {
-    'visualization': Visualization;
+    'layer': Layer;
   }
 }

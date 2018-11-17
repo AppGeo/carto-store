@@ -7,10 +7,10 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('visualizations', function() {
+  this.route('layers', function() {
     this.route('new');
   });
-  this.route('visualization', { path: '/visualizations/:visualizationId' }, function() {
+  this.route('layer', { path: '/layers/:layerId' }, function() {
     
   });
 });
