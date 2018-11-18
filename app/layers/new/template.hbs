@@ -1,3 +1,11 @@
 <CartoEditor as |data|>
-  <button type='button' onclick={{action 'create' data}}>Create</button>
+  <div class='mt-4'>
+    <button
+      class='inline-block shadow bg-purple hover:bg-purple-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
+      type='button'
+      onclick={{action 'create' data}}
+    >
+      Create
+    </button>
+  </div>
 </CartoEditor>

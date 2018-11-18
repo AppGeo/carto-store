@@ -41,14 +41,15 @@ export default class CartoEditor extends Component.extend({
   style: carto.style.CartoCSS;
   source: carto.source.Dataset;
   cartoClient: carto.Client;
-  data?: CartoData;
   name?: string;
+  layerName?: string;
+  css?: string;
+  sql?: string;
 
   constructor() {
     super(...arguments);
-    let data = this.data || {};
-    let cartoCss = get(data, 'css') || this.cartoCss;
-    let cartoSql = get(data, 'sql');
+    let cartoCss = this.css || this.cartoCss;
+    let cartoSql = this.sql;
     let source;
     
     if (cartoSql) {
@@ -66,7 +67,7 @@ export default class CartoEditor extends Component.extend({
     this.source = source;
     this.style = style;
     this.cartoClient = client;
-    this.name = get(data, 'name');
+    this.layerName = this.name;
   }
 
   @action

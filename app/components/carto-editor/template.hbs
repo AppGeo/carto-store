@@ -1,14 +1,14 @@
 
-<div class='mx-4 mt-4'>
+<div class='mt-4'>
   <input
     class='bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-1/3 py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple'
     placeholder='Name'
-    value={{this.name}}
-    oninput={{action (mut this.name) value='target.value'}}
+    value={{this.layerName}}
+    oninput={{action (mut this.layerName) value='target.value'}}
   >
 </div>
 
-<div class='mx-4 mt-4 shadow-md rounded'>
+<div class='mt-4 shadow-md rounded'>
   <LeafletMap
     @lat={{this.lat}}
     @lng={{this.lng}}
@@ -19,7 +19,7 @@
   </LeafletMap>
 </div>
 
-<div class='p-4 flex flex-row'>
+<div class='mt-4 flex flex-row'>
   <textarea
     class='mr-4 bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-1/3 py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple'
     rows='10'
@@ -42,10 +42,10 @@
       FROM ne_10m_populated_places_simple
       WHERE adm0name IN (SELECT admin FROM ne_adm0_europe)
   </p>
-
-  {{yield (hash
-    sql=this.cartoSql
-    css=this.cartoCss
-    name=this.name
-  )}}
 </div>
+
+{{yield (hash
+  sql=this.cartoSql
+  css=this.cartoCss
+  name=this.layerName
+)}}
