@@ -1,5 +1,7 @@
 import Component, { tracked } from 'sparkles-component';
+import { service } from '@ember-decorators/service';
 import carto from '@carto/carto.js';
+import NotificationsService from 'ember-cli-notifications/services/notification-messages-service';
 
 interface LoadedEvent {
   target: object;
@@ -22,6 +24,9 @@ const client = new carto.Client({
 });
 
 export default class CartoEditor extends Component {
+  @service('notification-messages')
+  notificationsService!: NotificationsService;
+
   lat: number = 30;
   lng: number = 0;
   zoom: number = 3;
@@ -66,6 +71,10 @@ export default class CartoEditor extends Component {
     const style = new carto.style.CartoCSS(cartoCss);
     const layer = new carto.layer.Layer(source, style);
 
+    layer.on('error', (e: any) => {
+      this.notificationsService.error(`Error using the supplied SQL. ${e}`);
+    });
+
     this.layer = layer;
     this.source = source;
     this.style = style;
@@ -104,4 +113,9 @@ export default class CartoEditor extends Component {
     } else {
       this.layer.setSource(this.source);
     }
-  }};
+  }
+
+  destroy() {
+    this.layer.off('error');
+  }
+}
