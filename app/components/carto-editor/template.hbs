@@ -13,35 +13,51 @@
     @lat={{this.lat}}
     @lng={{this.lng}}
     @zoom={{this.zoom}}
-    @onLoad={{action 'mapLoaded'}}
+    @onLoad={{action this.mapLoaded}}
   as |layers|>
     <layers.tile @url='http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png' />
   </LeafletMap>
 </div>
 
-<div class='mt-4 flex flex-row'>
-  <textarea
-    class='mr-4 bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-1/3 py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple'
-    rows='10'
-    placeholder='carto css'
-    value={{this.cartoCss}}
-    onchange={{action 'updateCss' value='target.value'}}
-  ></textarea>
+<div class='mt-4 flex flex-col'>
+  <ul class='list-reset flex border-b mb-2'>
+    {{#each this.tabs as |tab|}}
+      <li class='mr-1 {{if (eq this.selectedTab tab.id) '-mb-px'}}'>
+        <a
+          class='bg-white inline-block py-2 px-4 font-semibold {{if (eq this.selectedTab tab.id) 'border-l border-t border-r rounded-t text-blue-dark' 'text-blue hover:text-blue-darker'}}'
+          role='button'
+          onclick={{action (mut this.selectedTab) tab.id}}
+        >
+          {{tab.name}}
+        </a>
+      </li>
+    {{/each}}
+  </ul>
 
-  <textarea
-    class='mr-4 bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-1/3 py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple'
-    rows='10'
-    placeholder='sql'
-    value={{this.cartoSql}}
-    onchange={{action 'updateSql' value='target.value'}}
-  ></textarea>
+  {{#if (eq this.selectedTab 'styles')}}
+    <textarea
+      class='mr-4 bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-full py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple'
+      rows='10'
+      placeholder='carto css'
+      value={{this.cartoCss}}
+      onchange={{action this.updateCss value='target.value'}}
+    ></textarea>
+  {{else if (eq this.selectedTab 'sql')}}
+    <textarea
+      class='mr-4 bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-full py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple'
+      rows='10'
+      placeholder='sql'
+      value={{this.cartoSql}}
+      onchange={{action this.updateSql value='target.value'}}
+    ></textarea>
 
-  <p class='py-2 text-sm text-grey-darker'>
-    Test SQL with:<br><br>
-    SELECT *
-      FROM ne_10m_populated_places_simple
-      WHERE adm0name IN (SELECT admin FROM ne_adm0_europe)
-  </p>
+    <p class='py-2 text-sm text-grey-darker'>
+      Test SQL with:<br><br>
+      SELECT *
+        FROM ne_10m_populated_places_simple
+        WHERE adm0name IN (SELECT admin FROM ne_adm0_europe)
+    </p>
+  {{/if}}
 </div>
 
 {{yield (hash

@@ -1,19 +1,19 @@
-import Component from '@ember/component';
-import { get } from '@ember/object';
-import { action } from '@ember-decorators/object';
+import Component, { tracked } from 'sparkles-component';
 import carto from '@carto/carto.js';
 
 interface LoadedEvent {
   target: object;
 }
 
-interface CartoLayer {
-  setStyle: Function;
-}
-
-interface CartoData {
+interface Args {
+  name?: string;
   css?: string;
   sql?: string;
+}
+
+interface Tab {
+  id: string;
+  name: string;
 }
 
 const client = new carto.Client({
@@ -21,14 +21,22 @@ const client = new carto.Client({
   username: 'cartojs-test'
 });
 
-
-export default class CartoEditor extends Component.extend({
-  // anything which *must* be merged to prototype here
-}) {
+export default class CartoEditor extends Component {
   lat: number = 30;
   lng: number = 0;
   zoom: number = 3;
   cartoSource: string = 'ne_10m_populated_places_simple';
+  layer: carto.layer.Layer;
+  style: carto.style.CartoCSS;
+  source: carto.source.Dataset;
+  cartoClient: carto.Client;
+  layerName?: string;
+  name?: string;
+  css?: string;
+  sql?: string;
+  tabs: Tab[];
+
+  @tracked
   cartoCss: string = `
     #layer {
       marker-width: 7;
@@ -36,18 +44,13 @@ export default class CartoEditor extends Component.extend({
       marker-line-color: #FFFFFF;
     }
   `;
+  @tracked
   cartoSql?: string;
-  layer: carto.layer.Layer;
-  style: carto.style.CartoCSS;
-  source: carto.source.Dataset;
-  cartoClient: carto.Client;
-  name?: string;
-  layerName?: string;
-  css?: string;
-  sql?: string;
+  @tracked
+  selectedTab: string = 'styles';
 
-  constructor() {
-    super(...arguments);
+  constructor(args: Args) {
+    super(args);
     let cartoCss = this.css || this.cartoCss;
     let cartoSql = this.sql;
     let source;
@@ -68,9 +71,12 @@ export default class CartoEditor extends Component.extend({
     this.style = style;
     this.cartoClient = client;
     this.layerName = this.name;
+    this.tabs = [
+      { name: 'Styles', id: 'styles' },
+      { name: 'SQL', id: 'sql' }
+    ];
   }
 
-  @action
   mapLoaded(event: LoadedEvent) {
     let map = event.target;
     let layer = this.layer;
@@ -85,18 +91,16 @@ export default class CartoEditor extends Component.extend({
     }, 300)
   }
 
-  @action
   updateCss(css: string) {        
     this.style.setContent(css);
-    this.set('cartoCss', css);
+    this.cartoCss = css;
   }
 
-  @action
   updateSql(sql: string) {
     if (sql) {
       const source = new carto.source.SQL(sql);
       this.layer.setSource(source);
-      this.set('cartoSql', sql);
+      this.cartoSql = sql;
     } else {
       this.layer.setSource(this.source);
     }
