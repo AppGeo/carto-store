@@ -1,1 +1,11 @@
 {{outlet}}
+
+<ul class='card-grid mt-4'>
+  {{#each this.model as |project|}}
+    <li>
+      {{#link-to 'project' project.id class='bg-indigo-dark text-indigo-lightest shadow-md hover:shadow-lg rounded p-4 block'}}
+        {{project.name}}
+      {{/link-to}}
+    </li>
+  {{/each}}
+</ul>

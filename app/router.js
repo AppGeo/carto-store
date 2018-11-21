@@ -7,11 +7,14 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('layers', function() {
-    this.route('new');
-  });
-  this.route('layer', { path: '/layers/:layerId' }, function() {
+  this.route('project', { path: '/project/:projectId' }, function() {
+    this.route('layers', function() {
+      this.route('new');
+    });
     
+    this.route('layer', { path: '/layers/:layerId' }, function() {
+      
+    });
   });
 });
 

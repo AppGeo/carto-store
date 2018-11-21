@@ -1,7 +1,7 @@
 <ul class='list-reset'>
-  {{#each this.model as |layer|}}
+  {{#each this.layers as |layer|}}
     <li>
-      {{#link-to 'layer.index' layer.id}}
+      {{#link-to 'project.layer' layer.id}}
         {{layer.name}}
       {{/link-to}}
     </li>

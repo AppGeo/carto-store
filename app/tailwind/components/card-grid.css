@@ -15,3 +15,10 @@
  @apply .bg-blue-dark;
 }
 */
+.card-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 15px;
+}

@@ -2,15 +2,14 @@ import Component, { tracked } from 'sparkles-component';
 import { service } from '@ember-decorators/service';
 import carto from '@carto/carto.js';
 import NotificationsService from 'ember-cli-notifications/services/notification-messages-service';
+import LayerModel from 'carto-store/models/layer';
 
 interface LoadedEvent {
   target: object;
 }
 
 interface Args {
-  name?: string;
-  css?: string;
-  sql?: string;
+  layer: LayerModel
 }
 
 interface Tab {
@@ -56,8 +55,8 @@ export default class CartoEditor extends Component {
 
   constructor(args: Args) {
     super(args);
-    let cartoCss = this.css || this.cartoCss;
-    let cartoSql = this.sql;
+    let cartoCss = args.layer.get('css') || this.cartoCss;
+    let cartoSql = args.layer.get('sql');
     let source;
     
     if (cartoSql) {
@@ -79,7 +78,7 @@ export default class CartoEditor extends Component {
     this.source = source;
     this.style = style;
     this.cartoClient = client;
-    this.layerName = this.name;
+    this.layerName = args.layer.get('name');
     this.tabs = [
       { name: 'Styles', id: 'styles' },
       { name: 'SQL', id: 'sql' }

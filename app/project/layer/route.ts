@@ -8,6 +8,6 @@ export default class Layer extends Route.extend({
   // anything which *must* be merged to prototype here
 }) {
   model({ layerId }: Params) {
-    return this.store.findRecord('layer', layerId, { include: 'variations' });
+    return this.store.findRecord('layer', layerId);
   }
 }

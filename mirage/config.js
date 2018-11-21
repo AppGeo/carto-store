@@ -25,9 +25,17 @@ export default function() {
   */
 
   this.namespace = '/api';
-  this.get('/layers');
+
+  this.get('/projects');
+  this.get('/projects/:id');
+  this.post('/projects');
+
+  this.get('/layers', (schema, request) => {
+    let projectId = request.queryParams.projectId;
+    let project = schema.projects.find(projectId);
+
+    return project.layers;
+  });
   this.get('/layers/:id');
   this.post('/layers');
-  this.get('/variation-cartos');
-  this.post('/variation-cartos');
 }
