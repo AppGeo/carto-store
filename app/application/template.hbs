@@ -1,7 +1,10 @@
 <UiNav/>
 
 <div class='p-4'>
-  <BgrBreadcrumbs class='list-reset flex' @itemClassName='mr-2'/>
+  <BgrBreadcrumbs
+    class='list-reset flex'
+    @itemClassName='mr-2'
+    @linkClassName='no-underline'/>
 
   {{outlet}}
 </div>
