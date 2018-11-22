@@ -1,5 +1,8 @@
-<h3 class='text-indigo-darker font-normal'>
-  {{this.model.name}}
-</h3>
+<BgrBreadcrumbsItem as |linkClass|>
+  {{#link-to 'project' this.model.id class=(concat linkClass ' text-indigo-darker font-normal')}}
+    {{this.model.name}}
+  {{/link-to}}
+</BgrBreadcrumbsItem>
+
 
 {{outlet}}

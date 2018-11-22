@@ -1,1 +1,7 @@
+<BgrBreadcrumbsItem as |linkClass|>
+  {{#link-to 'project.layer' this.model.id class=(concat linkClass ' text-indigo-darker font-normal')}}
+    {{this.model.name}}
+  {{/link-to}}
+</BgrBreadcrumbsItem>
+
 {{outlet}}
