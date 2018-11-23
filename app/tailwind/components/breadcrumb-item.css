@@ -1,0 +1,4 @@
+.breadcrumb-item:not(:last-child):after {
+  @apply text-indigo-lighter;
+  content: '/';
+}
