@@ -1,7 +1,9 @@
-<ul class='list-reset'>
+<ul class='card-grid mt-4'>
   {{#each this.layers as |layer|}}
     <li>
-      {{#link-to 'project.layer' layer.id}}
+      {{#link-to 'project.layer' layer.id
+        class='bg-white text-indigo-dark shadow-md hover:shadow-lg rounded p-4 block'
+      }}
         {{layer.name}}
       {{/link-to}}
     </li>
