@@ -1,4 +1,12 @@
-.breadcrumb-item:not(:last-child):after {
+.breadcrumb-item:not(:first-child):before {
   @apply text-indigo-lighter;
   content: '/';
+}
+
+.breadcrumb-item:not(:last-child) a {
+  @apply text-indigo underline;
+}
+
+.breadcrumb-item:last-child a {
+  @apply cursor-default;
 }
