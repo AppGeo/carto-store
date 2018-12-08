@@ -1,6 +1,8 @@
-{{#link-to 'project.layers.new' projectId class='bg-indigo-dark text-indigo-lightest shadow-md hover:shadow-lg rounded p-4 block'}}
-  Add New Layer
-{{/link-to}}
+<div class='mt-1'>
+  {{#link-to 'project.layers.new' projectId class='bg-indigo-dark text-indigo-lightest shadow-md hover:shadow-lg rounded p-4'}}
+    Add New Layer
+  {{/link-to}}
+</div>
 
 <ul class='card-grid mt-4'>
   {{#each this.layers as |layer|}}
