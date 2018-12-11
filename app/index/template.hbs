@@ -1,11 +1,28 @@
 {{outlet}}
 
-<ul class='card-grid mt-4'>
+<div class='mt-2'>
+  <button
+    type='button'
+    class='bg-indigo-dark text-indigo-lightest shadow-md hover:shadow-lg rounded p-4'
+    onclick={{action (mut this.createModalVisible) true}}
+  >
+    Create New Project
+  </button>
+</div>
+
+<ul class='card-grid mt-6'>
   {{#each this.model as |project|}}
     <li>
-      {{#link-to 'project' project.id class='bg-indigo-dark text-indigo-lightest shadow-md hover:shadow-lg rounded p-4 block'}}
+      {{#link-to 'project' project.id class='bg-white text-indigo-dark shadow-md hover:shadow-lg rounded p-4 block'}}
         {{project.name}}
       {{/link-to}}
     </li>
   {{/each}}
 </ul>
+
+{{#if this.createModalVisible}}
+  <ProjectCreateModal
+    @onCancel={{action (mut this.createModalVisible) false}}
+    @onSubmit={{action 'createProject'}}
+  />
+{{/if}}

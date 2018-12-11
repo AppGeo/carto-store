@@ -1,0 +1,16 @@
+@import 'ember-modal-dialog/ember-modal-structure';
+@import 'tailwind';
+
+.leaflet-container {
+  min-height: 450px;
+}
+
+// ember-modal
+.ember-modal-overlay.translucent {
+  background-color: rgba(59, 63, 86, 0.82);
+}
+
+// place above dropdowns (which are at 1000)
+.ember-modal-overlay {
+  z-index: 1001;
+}

@@ -1,0 +1,8 @@
+<ModalDialog
+  @onClose={{action @onClose}}
+  @targetAttachment='center'
+  @translucentOverlay={{true}}
+  @containerClass='bg-white text-indigo-dark shadow-md rounded px-2 py-3 {{@modalClass}}'
+>
+  {{yield @onClose}}
+</ModalDialog>

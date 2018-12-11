@@ -1,0 +1,43 @@
+<BasicModal @modalClass='min-w-1/3' @onClose={{action @onCancel}} as |close|>
+  <h3 class='text-indigo-dark mb-2 text-base font-semibold'>
+    Create Project
+  </h3>
+
+  <div class='mt-4'>
+    <form
+      onsubmit={{action @onSubmit (hash name=this.name)}}
+    >
+      <label
+        for='project-create-name'
+        class='block text-grey-dark mb-1 pr-4'
+      >
+        Project Name
+      </label>
+      <input
+        id='project-create-name'
+        class='bg-grey-light min-w-full appearance-none border-2 border-grey-lighter rounded w-1/3 py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple'
+        placeholder='Name'
+        required='true'
+        value={{this.name}}
+        oninput={{action (mut this.name) value='target.value'}}
+      >
+
+      <div class='flex flex-row mt-6'>
+        <button
+          type='button'
+          class='shadow bg-grey-lightest hover:bg-grey-lighter text-grey-dark py-2 px-4 rounded'
+          onclick={{action close}}
+        >
+          Cancel
+        </button>
+        <div class='flex-1'></div>
+        <button
+          type='submit'
+          class='shadow bg-indigo-dark text-indigo-lightest hover:shadow-lg text-white py-2 px-4 rounded'
+        >
+          Create Project
+        </button>
+      </div>
+    </form>
+  </div>
+</BasicModal>
