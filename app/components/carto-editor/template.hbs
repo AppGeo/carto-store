@@ -57,6 +57,10 @@
         FROM ne_10m_populated_places_simple
         WHERE adm0name IN (SELECT admin FROM ne_adm0_europe)
     </p>
+  {{else if (eq this.selectedTab 'legend')}}
+    <LegendEditor
+      @onUpdate={{action (mut this.legend)}}
+    />
   {{/if}}
 </div>
 

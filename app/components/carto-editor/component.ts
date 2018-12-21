@@ -81,7 +81,8 @@ export default class CartoEditor extends Component {
     this.layerName = args.layer.get('name');
     this.tabs = [
       { name: 'Styles', id: 'styles' },
-      { name: 'SQL', id: 'sql' }
+      { name: 'SQL', id: 'sql' },
+      { name: 'Legend', id: 'legend' }
     ];
   }
 
