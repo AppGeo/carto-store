@@ -29,7 +29,8 @@ export default class Index extends Controller.extend({
     await project.save();
 
     this.set('createModalVisible', false);
-    this.notificationsService.success(`Project '${data.name}' created!`);
+    await this.transitionToRoute('project', project.id);
+    this.notificationsService.success(`Welcome to project '${data.name}'!`);
   }
 }
 

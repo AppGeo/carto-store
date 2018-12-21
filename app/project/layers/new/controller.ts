@@ -4,6 +4,9 @@ import { service } from '@ember-decorators/service';
 import DS from 'ember-data';
 import NotificationsService from 'ember-cli-notifications/services/notification-messages-service';
 import RouterService from '@ember/routing/router-service';
+import Layer from 'carto-store/models/layer';
+import Project from 'carto-store/models/project';
+import project from 'carto-store/mirage/factories/project';
 
 interface CartoData {
   css: string;
@@ -21,25 +24,23 @@ export default class LayersNew extends Controller.extend({
   @service('router')
   routerService!: RouterService;
 
+  // from the route
+  layer!: Layer;
+  project!: Project;
+
   @action
   async create(data: CartoData) {
-    let store = this.storeService;
-    let variation = store.createRecord('variation-carto', {
-      css: data.css,
-      sql: data.sql
-    });
+    let layer = this.layer;
+    let project = this.project;
 
-    await variation.save();
-
-    let layer = store.createRecord('layer', {
-      name: data.name
-    });
-
-    layer.get('variations').addObject(variation);
+    layer.setProperties(data);
     await layer.save();
 
-    this.notificationsService.info(`Layer '${data.name}' saved!`);
-    this.routerService.transitionTo('layers');
+    project.get('layers').addObject(layer);
+    await project.save();
+
+    await this.routerService.transitionTo('project', project.id);
+    this.notificationsService.info(`Layer '${data.name}' created!`);
   }
 }
 
