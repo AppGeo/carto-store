@@ -4,6 +4,8 @@ A prototype of dynamically styling and setting sql for Carto using Carto v4.
 The idea is to also include legends, infowindows, and hover cards.
 Saving changes would be versioned via a version in the url that becomes the public API, e.g. somedomain.com/api/v1/project/layername/versionnumber/layerdata
 
+This idea could extend to other mapping libraries like mapbox or for tile layers, wms, wmts, etc..
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
