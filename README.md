@@ -1,7 +1,8 @@
 # carto-store
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+A prototype of dynamically styling and setting sql for Carto using Carto v4.
+The idea is to also include legends, infowindows, and hover cards.
+Saving changes would be versioned via a version in the url that becomes the public API, e.g. somedomain.com/api/v1/project/layername/versionnumber/layerdata
 
 ## Prerequisites
 
